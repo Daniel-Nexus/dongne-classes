@@ -23,10 +23,14 @@ htmlcov/
 .ruff_cache/
 .mypy_cache/
 
-data/
+/data/
 *.db
 *.sqlite
 .scrapling/
+
+node_modules/
+web/dist/
+*.log
 
 .DS_Store
 Thumbs.db

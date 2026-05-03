@@ -63,7 +63,7 @@
 ## 레포 구조
 
 ```
-src/
+src/                     # 백엔드 (크롤러 + 모델)
   models.py              # ClassListing Pydantic 모델
   fetcher.py             # Scrapling 래퍼 (HTTP/STEALTH/DYNAMIC)
   sources/
@@ -75,20 +75,48 @@ src/
     jamsil_youth.py
 tests/
   test_models.py
+
+web/                     # 프런트엔드 (Vite + React + TS + Tailwind v4)
+  src/
+    App.tsx
+    types.ts             # ClassListing TS 미러 (Pydantic 모델과 정합)
+    data/mock.ts         # 합성 데이터 fixture
+    components/          # Header, ClassCard, FilterPanel, ClassDetail
+
+.github/workflows/
+  pages.yml              # GitHub Pages 자동 배포 (web/ 변경 시 트리거)
 ```
+
+## 프런트엔드 라이브 미리보기
+
+GitHub Pages 자동 배포: https://daniel-nexus.github.io/dongne-classes/
+
+`Settings → Pages → Source: GitHub Actions` 한 번 활성화하면, 이후 `web/` 또는
+워크플로우 파일에 push할 때마다 자동 빌드·배포.
 
 ## 개발
 
+백엔드:
 ```bash
 pip install -e ".[dev]"
 pytest
 ```
 
+프런트엔드:
+```bash
+cd web
+npm install
+npm run dev      # http://localhost:5173
+npm run build    # 정적 산출 → web/dist
+```
+
 ## 다음 액션
 
+- [x] 프런트엔드 골격 + mock 데이터 + 필터/검색/상세
+- [x] GitHub Pages 자동 배포 워크플로우
 - [ ] 한국 IP 환경에서 5개 소스 사전 분석 (위 5개 확인 항목)
 - [ ] `seoul_youth_507`의 25개 구 커버 여부 확인 (Phase 2 확장 결정)
 - [ ] `jamsil_youth`가 `seoul_youth_507`에 포함되는지 확인 (중복 정리)
 - [ ] 가장 단순한 소스 1개부터 실제 crawler 구현 → 데이터 모델 미세조정
 - [ ] 데이터 sanity check 함수 (강좌명 유효성, 연령 파싱 등)
-- [ ] Scrapling 실제 설치 후 `src/fetcher.py` API 검증
+- [ ] 크롤러 산출물(JSON)을 프런트가 소비하도록 연결 (현재는 mock fixture 사용)
