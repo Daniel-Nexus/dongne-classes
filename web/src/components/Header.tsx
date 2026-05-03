@@ -1,48 +1,54 @@
+import { FilterIcon, SearchIcon } from './icons'
+
 interface Props {
-  total: number
-  shown: number
   query: string
   onQueryChange: (q: string) => void
   onOpenFilters: () => void
   activeFilterCount: number
 }
 
-export function Header({
-  total,
-  shown,
-  query,
-  onQueryChange,
-  onOpenFilters,
-  activeFilterCount,
-}: Props) {
+export function Header({ query, onQueryChange, onOpenFilters, activeFilterCount }: Props) {
   return (
-    <header className="sticky top-0 z-30 bg-white/90 backdrop-blur border-b border-zinc-200">
-      <div className="max-w-3xl mx-auto px-4 pt-3 pb-2">
-        <div className="flex items-baseline gap-2">
-          <h1 className="text-lg font-bold tracking-tight">송파구 어린이 강좌</h1>
-          <span className="text-xs text-zinc-500">{shown}/{total}</span>
+    <header className="sticky top-0 z-30 bg-stone-50/85 backdrop-blur-md border-b border-stone-200/70">
+      <div className="max-w-3xl mx-auto px-4 pt-4 pb-3">
+        <div className="flex items-center justify-between">
+          <div>
+            <div className="flex items-baseline gap-1.5">
+              <h1 className="text-[19px] font-bold tracking-tight text-stone-900">
+                송파 어린이 클래스
+              </h1>
+            </div>
+            <p className="text-[12px] text-stone-500 mt-0.5">
+              송파구 공공시설 강좌를 한 번에
+            </p>
+          </div>
         </div>
-        <p className="text-[11px] text-zinc-500 mt-0.5">
-          MVP · 합성 데이터 기반 · 실제 강좌 정보 아님
-        </p>
+
         <div className="mt-3 flex gap-2">
-          <input
-            type="search"
-            value={query}
-            onChange={(e) => onQueryChange(e.target.value)}
-            placeholder="강좌명·시설·카테고리 검색"
-            className="flex-1 min-w-0 rounded-lg border border-zinc-300 px-3 py-2 text-sm
-                       focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
-          />
+          <label className="relative flex-1 min-w-0">
+            <span className="absolute inset-y-0 left-3 flex items-center text-stone-400">
+              <SearchIcon className="w-4.5 h-4.5" />
+            </span>
+            <input
+              type="search"
+              value={query}
+              onChange={(e) => onQueryChange(e.target.value)}
+              placeholder="강좌·시설·주제 검색"
+              className="w-full rounded-xl bg-white border border-stone-200 pl-10 pr-3 py-2.5 text-[14px]
+                         placeholder:text-stone-400
+                         focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
+            />
+          </label>
           <button
             onClick={onOpenFilters}
-            className="relative shrink-0 rounded-lg border border-zinc-300 px-3 py-2 text-sm font-medium
-                       hover:bg-zinc-50 active:bg-zinc-100"
+            className="relative shrink-0 rounded-xl bg-white border border-stone-200 px-3.5 py-2.5
+                       text-stone-700 hover:bg-stone-50 active:bg-stone-100 transition"
+            aria-label="필터"
           >
-            필터
+            <FilterIcon className="w-5 h-5" />
             {activeFilterCount > 0 && (
-              <span className="absolute -top-1.5 -right-1.5 inline-flex h-5 min-w-5 items-center justify-center
-                               rounded-full bg-emerald-600 px-1 text-[10px] font-bold text-white">
+              <span className="absolute -top-1 -right-1 inline-flex h-5 min-w-5 items-center justify-center
+                               rounded-full bg-orange-500 px-1 text-[10px] font-bold text-white ring-2 ring-stone-50">
                 {activeFilterCount}
               </span>
             )}

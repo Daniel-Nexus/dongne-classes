@@ -74,22 +74,119 @@ export const STATUS_LABEL: Record<Status, string> = {
   unknown: '확인 필요',
 }
 
+export const STATUS_DOT: Record<Status, string> = {
+  upcoming: 'bg-amber-500',
+  recruiting: 'bg-emerald-500',
+  waitlist: 'bg-orange-500',
+  closed: 'bg-zinc-400',
+  in_progress: 'bg-sky-500',
+  ended: 'bg-zinc-400',
+  unknown: 'bg-zinc-300',
+}
+
 export const STATUS_BADGE: Record<Status, string> = {
-  upcoming: 'bg-amber-100 text-amber-800',
-  recruiting: 'bg-emerald-100 text-emerald-800',
-  waitlist: 'bg-orange-100 text-orange-800',
-  closed: 'bg-zinc-200 text-zinc-600',
-  in_progress: 'bg-sky-100 text-sky-800',
-  ended: 'bg-zinc-200 text-zinc-500',
-  unknown: 'bg-zinc-100 text-zinc-500',
+  upcoming: 'bg-amber-50 text-amber-700 ring-amber-200',
+  recruiting: 'bg-emerald-50 text-emerald-700 ring-emerald-200',
+  waitlist: 'bg-orange-50 text-orange-700 ring-orange-200',
+  closed: 'bg-zinc-100 text-zinc-500 ring-zinc-200',
+  in_progress: 'bg-sky-50 text-sky-700 ring-sky-200',
+  ended: 'bg-zinc-100 text-zinc-500 ring-zinc-200',
+  unknown: 'bg-zinc-50 text-zinc-500 ring-zinc-200',
+}
+
+export interface CategoryStyle {
+  text: string
+  bg: string
+  ring: string
+  stripe: string
+  gradient: string
+}
+
+export const CATEGORY_FALLBACK: CategoryStyle = {
+  text: 'text-stone-700',
+  bg: 'bg-stone-100',
+  ring: 'ring-stone-200',
+  stripe: 'bg-stone-300',
+  gradient: 'from-stone-100 to-stone-50',
+}
+
+export const CATEGORY_META: Record<string, CategoryStyle> = {
+  '미술': {
+    text: 'text-rose-700',
+    bg: 'bg-rose-100',
+    ring: 'ring-rose-200',
+    stripe: 'bg-rose-400',
+    gradient: 'from-rose-100 to-rose-50',
+  },
+  '음악': {
+    text: 'text-violet-700',
+    bg: 'bg-violet-100',
+    ring: 'ring-violet-200',
+    stripe: 'bg-violet-400',
+    gradient: 'from-violet-100 to-violet-50',
+  },
+  '체육': {
+    text: 'text-blue-700',
+    bg: 'bg-blue-100',
+    ring: 'ring-blue-200',
+    stripe: 'bg-blue-400',
+    gradient: 'from-blue-100 to-blue-50',
+  },
+  '코딩': {
+    text: 'text-slate-700',
+    bg: 'bg-slate-100',
+    ring: 'ring-slate-200',
+    stripe: 'bg-slate-500',
+    gradient: 'from-slate-100 to-slate-50',
+  },
+  '독서': {
+    text: 'text-amber-700',
+    bg: 'bg-amber-100',
+    ring: 'ring-amber-200',
+    stripe: 'bg-amber-400',
+    gradient: 'from-amber-100 to-amber-50',
+  },
+  '외국어': {
+    text: 'text-teal-700',
+    bg: 'bg-teal-100',
+    ring: 'ring-teal-200',
+    stripe: 'bg-teal-400',
+    gradient: 'from-teal-100 to-teal-50',
+  },
+  '과학': {
+    text: 'text-emerald-700',
+    bg: 'bg-emerald-100',
+    ring: 'ring-emerald-200',
+    stripe: 'bg-emerald-400',
+    gradient: 'from-emerald-100 to-emerald-50',
+  },
+  '요리': {
+    text: 'text-orange-700',
+    bg: 'bg-orange-100',
+    ring: 'ring-orange-200',
+    stripe: 'bg-orange-400',
+    gradient: 'from-orange-100 to-orange-50',
+  },
+  '두뇌놀이': {
+    text: 'text-fuchsia-700',
+    bg: 'bg-fuchsia-100',
+    ring: 'ring-fuchsia-200',
+    stripe: 'bg-fuchsia-400',
+    gradient: 'from-fuchsia-100 to-fuchsia-50',
+  },
+}
+
+export function categoryStyle(category?: string): CategoryStyle {
+  if (!category) return CATEGORY_FALLBACK
+  return CATEGORY_META[category] ?? CATEGORY_FALLBACK
 }
 
 // 0~12세 → 4개 버킷
 export const AGE_BUCKETS = [
-  { id: 'infant', label: '영아 (0~2세)', min: 0, max: 2 },
-  { id: 'toddler', label: '유아 (3~5세)', min: 3, max: 5 },
-  { id: 'lower', label: '초등 저학년 (6~9세)', min: 6, max: 9 },
-  { id: 'upper', label: '초등 고학년 (10~12세)', min: 10, max: 12 },
+  { id: 'infant', label: '영아 (0~2세)', short: '영아', min: 0, max: 2 },
+  { id: 'toddler', label: '유아 (3~5세)', short: '유아', min: 3, max: 5 },
+  { id: 'lower', label: '초등 저학년 (6~9세)', short: '저학년', min: 6, max: 9 },
+  { id: 'upper', label: '초등 고학년 (10~12세)', short: '고학년', min: 10, max: 12 },
 ] as const
 
 export type AgeBucketId = (typeof AGE_BUCKETS)[number]['id']
