@@ -27,6 +27,8 @@ htmlcov/
 *.db
 *.sqlite
 .scrapling/
+.scratch/
+.claude/
 
 node_modules/
 web/dist/
